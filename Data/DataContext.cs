@@ -1,9 +1,6 @@
-using System;
-using System.IO;
 using dotnet_rpg.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 
 namespace dotnet_rpg.Data
 {
@@ -17,6 +14,8 @@ namespace dotnet_rpg.Data
         // }
         public DbSet<Character> Characters { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Weapon> Weapons { get; set; }
+        
         
         
     }

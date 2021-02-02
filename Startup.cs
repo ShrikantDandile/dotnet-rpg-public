@@ -2,6 +2,7 @@ using System.Text;
 using AutoMapper;
 using dotnet_rpg.Data;
 using dotnet_rpg.Services.CharacterService;
+using dotnet_rpg.Services.WeaponService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,12 +33,15 @@ namespace dotnet_rpg
             services.AddAutoMapper(typeof(Startup));
             // Services and Interfaces Mapping
             ManageServices(services);
+            
+            // HttpAccessor
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+           
 
             // Authentication Service
             AuthenticationService(services);
 
-            // HttpAccessor
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+           
 
             // Swagger Services
             services.AddSwaggerGen(c =>
@@ -66,6 +70,7 @@ namespace dotnet_rpg
         {
             services.AddScoped<ICharacterService, CharacterService>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IWeaponService1, WeaponService1>();
 
         }
 
