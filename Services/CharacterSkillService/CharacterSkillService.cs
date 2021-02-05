@@ -39,13 +39,29 @@ namespace dotnet_rpg.Services.CharacterSkillService
                     serviceResponse.Message = "Character Not Found";
                     return serviceResponse;
                 }
+                Skill skill=await _dataContext.Skills.FirstOrDefaultAsync(s => s.Id==newCharacterSkill.SkillId);
+                if (skill==null)
+                {
+                    serviceResponse.Success=false;
+                    serviceResponse.Message="Skill not found!";
+                    return serviceResponse;
+                }
 
+                CharacterSkill characterSkill=new CharacterSkill(){
+                    Character=character,
+                    Skill=skill
+                };
+
+                 await _dataContext.CharacterSkills.AddAsync(characterSkill);
+                 await _dataContext.SaveChangesAsync();
+                 serviceResponse.Data=_mapper.Map<GetCharacterDTO>(character);
             }
             catch (Exception ex)
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;
             }
+            return serviceResponse;
         }
     }
 }
